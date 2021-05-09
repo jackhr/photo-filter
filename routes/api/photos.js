@@ -6,5 +6,8 @@ const photosCtrl = require('../../controllers/api/users');
 
 // GET /api/photos
 router.get('/', photosCtrl.getAll);
+// POST /api/photos
+router.post('/', photosCtrl.create);
+
 
 module.exports = router;

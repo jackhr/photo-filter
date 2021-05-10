@@ -5,7 +5,7 @@ export default function Photo({ photo }) {
 
   return (
     <div>
-      <h1>This is a photo component</h1>
+      <h1>{photo.name}</h1>
     </div>
   );
 }

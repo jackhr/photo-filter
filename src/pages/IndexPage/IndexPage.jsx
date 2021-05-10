@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function IndexPage() {
-  const [photos, setPhotos] = useState([]);
+export default function IndexPage({ photos, setPhotos }) {
 
   useEffect(function() {
     async function getPhotos() {

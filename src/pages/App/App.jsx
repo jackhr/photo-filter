@@ -10,6 +10,12 @@ import IndexPage from '../IndexPage/IndexPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+
+  const [photos, setPhotos] = useState([]);
+
+  function addPhoto(photo) {
+    setPhotos([...photos, photo])
+  }
   
   return (
     <main className="App">
@@ -20,10 +26,10 @@ export default function App() {
         :
         <Switch>
           <Route path="/photos/new">
-            <PhotoUploadPage />
+            <PhotoUploadPage addPhoto={addPhoto} />
           </Route>
           <Route path="/photos">
-            <IndexPage />
+            <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
           <Redirect to="/photos"/>
           {/* <PhotoUploadPage /> */}

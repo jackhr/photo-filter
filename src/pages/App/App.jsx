@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 import LandingPage from '../LandingPage/LandingPage';
 import PhotoUploadPage from '../PhotoUploadPage/PhotoUploadPage';
+import IndexPage from '../IndexPage/IndexPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -18,7 +19,8 @@ export default function App() {
         </>
         :
         <>
-          <PhotoUploadPage />
+          <IndexPage />
+          {/* <PhotoUploadPage /> */}
           {/* <LandingPage /> */}
           {/* <AuthPage setUser={setUser} /> */}
         </>

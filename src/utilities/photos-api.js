@@ -14,5 +14,4 @@ export function getAll() {
 
 export function upload(photoData) {
   console.log(photoData);
-  
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import photosAPI from '../../utilities/photos-api';
+import * as photosAPI from '../../utilities/photos-api';
 
 export default function PhotoUploadPage() {
   const [photos, setPhotos] = useState([]); // This will be passed down eventually
   
   async function handleUploadPhoto(evt) {
     console.log(evt.target);
-    const photo = await photosAPI.upload(photoData);
+    const photo = await photosAPI.upload();
     setPhotos([...photos, photo]);
   }
   

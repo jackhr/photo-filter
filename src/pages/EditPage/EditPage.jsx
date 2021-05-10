@@ -1,29 +1,24 @@
 import { useState } from "react";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function PhotoUploadPage({ addPhoto }) {
-  const [photoData, setPhotoData] = useState({ name: "" });
+export default function EditPage({  }) {
 
-  async function handleUploadPhoto(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    const newPhoto = await photosAPI.create(photoData);
-    addPhoto(newPhoto);
   }
 
   function handleChange(evt) {
-    setPhotoData({ name: evt.target.value });
   }
   
   return(
     <div>
       <form
-        onSubmit={handleUploadPhoto}
+        onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
         <label>Name: </label>
         <input
           name="name"
-          value={photoData.name}
           onChange={handleChange}
           type="text"
         />

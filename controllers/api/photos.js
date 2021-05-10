@@ -1,4 +1,11 @@
 const Photo = require('../../models/photo');
+// const {
+//   S3Client,
+//   PutObjectCommand,
+//   CreateBucketCommand
+// } = require("@aws-sdk/client-s3");
+// const REGION = process.env.REGION;
+// const bucket = process.env.S3_BUCKET;
 
 module.exports = {
   getAll,

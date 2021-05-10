@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function EditPage({  }) {
+export default function EditPage({ photos }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -10,6 +11,8 @@ export default function EditPage({  }) {
   function handleChange(evt) {
   }
   
+  const { photoId } = useParams();
+
   return(
     <div>
       <form
@@ -21,6 +24,7 @@ export default function EditPage({  }) {
           name="name"
           onChange={handleChange}
           type="text"
+          placeholder={photos[photoId].name}
         />
         {/* <input type="file" name="image" /> */}
       </form>

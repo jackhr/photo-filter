@@ -7,6 +7,8 @@ import './App.css';
 import LandingPage from '../LandingPage/LandingPage';
 import PhotoUploadPage from '../PhotoUploadPage/PhotoUploadPage';
 import IndexPage from '../IndexPage/IndexPage';
+import EditPage from '../EditPage/EditPage';
+import DetailPage from '../DetailPage/DetailPage';
 
 export default function App() {
   // const [user, setUser] = useState(getUser());
@@ -29,8 +31,11 @@ export default function App() {
           <Route path="/photos/new">
             <PhotoUploadPage addPhoto={addPhoto} />
           </Route>
-          <Route path="/photos">
+          <Route exact path="/photos">
             <IndexPage photos={photos} setPhotos={setPhotos} />
+          </Route>
+          <Route path="/photos/:photoId">
+            <DetailPage photos={photos} />
           </Route>
           <Redirect to="/photos"/>
           {/* <PhotoUploadPage /> */}

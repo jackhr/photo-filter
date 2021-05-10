@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Photo from "../../components/Photo/Photo";
 import * as photosAPI from '../../utilities/photos-api';
 
 export default function IndexPage({ photos, setPhotos }) {
@@ -14,7 +16,13 @@ export default function IndexPage({ photos, setPhotos }) {
   return(
     <div>
       {photos.length ? (
-        photos.map(photo => <p>{photo.name}</p> )
+        photos.map((p, idx) =>
+          <>
+            <Photo photo={p} />
+            <Link to={`/photos/${idx}`}>Details</Link>
+            <hr />
+          </>
+        )
       ) : (
         <h1>Ain't got no photos yet BRUH!</h1>
       )}

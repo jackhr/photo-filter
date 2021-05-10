@@ -4,14 +4,21 @@ import photosAPI from '../../utilities/photos-api';
 export default function PhotoUploadPage() {
   const [photos, setPhotos] = useState([]); // This will be passed down eventually
   
-  async function handleUploadPhoto(photoData) {
+  async function handleUploadPhoto(evt) {
+    console.log(evt.target);
     const photo = await photosAPI.upload(photoData);
     setPhotos([...photos, photo]);
   }
   
   return(
     <div>
-      <h1>Wagwan!</h1>
+      <form
+        onClick={handleUploadPhoto}
+        enctype="multipart/form-data"
+      >
+        <input type="text" name="name" />
+        <input type="file" name="image" />
+      </form>
     </div>
   );
 }

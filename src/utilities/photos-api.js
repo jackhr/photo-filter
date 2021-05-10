@@ -1,5 +1,11 @@
 import { sendRequest } from './send-request';
-
+const {
+  S3Client,
+  PutObjectCommand,
+  CreateBucketCommand
+} = require("@aws-sdk/client-s3");
+const REGION = process.env.REGION;
+const bucket = process.env.S3_BUCKET;
 const BASE_URL = '/api/photos';
 
 export function getAll() {
@@ -7,5 +13,6 @@ export function getAll() {
 }
 
 export function upload(photoData) {
-  return sendRequest(BASE_URL, 'POST', photoData);
+  console.log(photoData);
+  
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { Route, Switch, Redirect } from 'react-router-dom'; for later use
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
@@ -18,12 +18,18 @@ export default function App() {
         <>
         </>
         :
-        <>
-          <IndexPage />
+        <Switch>
+          <Route path="/photos/new">
+            <PhotoUploadPage />
+          </Route>
+          <Route path="/photos">
+            <IndexPage />
+          </Route>
+          <Redirect to="/photos"/>
           {/* <PhotoUploadPage /> */}
           {/* <LandingPage /> */}
           {/* <AuthPage setUser={setUser} /> */}
-        </>
+        </Switch>
       }
     </main>
   );

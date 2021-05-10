@@ -11,7 +11,11 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-  req.body.user = req.user._id;
-  const photo = await Photo.create(req.body);
-  res.json(photo);
+  try {
+    // req.body.user = req.user._id;
+    const photo = await Photo.create(req.body);
+    res.json(photo);
+  } catch {
+    res.status(400).json(err)
+  }
 }

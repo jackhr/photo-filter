@@ -14,7 +14,7 @@ export default function IndexPage({ photos, setPhotos }) {
   return(
     <div>
       {photos.length ? (
-        photos.map(photo => <img src={photo.url}/>)
+        photos.map(photo => <p>{photo.name}</p> )
       ) : (
         <h1>Ain't got no photos yet BRUH!</h1>
       )}

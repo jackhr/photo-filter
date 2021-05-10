@@ -9,7 +9,8 @@ import PhotoUploadPage from '../PhotoUploadPage/PhotoUploadPage';
 import IndexPage from '../IndexPage/IndexPage';
 
 export default function App() {
-  const [user, setUser] = useState(getUser());
+  // const [user, setUser] = useState(getUser());
+  const [user, setUser] = useState(null);
 
   const [photos, setPhotos] = useState([]);
 

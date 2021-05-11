@@ -38,10 +38,10 @@ export default function App() {
           <Route exact path="/photos">
             <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
-          <Route exact path="/photos/:photoId">
+          <Route exact path="/photos/:idx">
             <DetailPage photos={photos} />
           </Route>
-          <Route path="/photos/:photoId/edit">
+          <Route path="/photos/:idx/edit">
             <EditPage photos={photos} />
           </Route>
           <Route path="/login">

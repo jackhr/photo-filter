@@ -12,14 +12,14 @@ export default function DetailPage({ photos }) {
   function handleChange(evt) {
   }
   
-  const { photoId } = useParams();
+  const { idx } = useParams();
 
   return(
     <div>
       <h1>
-        {photos[photoId].name}
+        {photos[idx].name}
       </h1>
-      <Link to={`/photos/${photoId}/edit`}>Edit</Link>
+      <Link to={`/photos/${idx}/edit`}>Edit</Link>
     </div>
   );
 }

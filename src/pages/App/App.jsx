@@ -19,30 +19,39 @@ export default function App() {
   function addPhoto(photo) {
     setPhotos([...photos, photo])
   }
+
+  function updatePhoto(photo, idx) {
+    let newPhotos = [...photos];
+    newPhotos[idx] = photo;
+    setPhotos(newPhotos);
+  }
   
   return (
     <main className="App">
       <NavBar user={user} setUser={setUser} />
       { user ? 
         <Switch>
-          <Route path="/photos/:photoId/edit" >
-            <EditPage photos={photos} />
-          </Route>
-          <Redirect to="/photos"/>
-        </Switch>
-        :
-        <Switch>
-          <Route path="/photos/new">
-            <PhotoUploadPage addPhoto={addPhoto} />
-          </Route>
           <Route exact path="/photos">
             <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
           <Route exact path="/photos/:idx">
             <DetailPage photos={photos} />
           </Route>
-          <Route path="/photos/:idx/edit">
-            <EditPage photos={photos} />
+          <Route path="/photos/:idx/edit" >
+            <EditPage photos={photos} updatePhoto={updatePhoto} />
+          </Route>
+          <Route path="/photos/new">
+            <PhotoUploadPage addPhoto={addPhoto} />
+          </Route>
+          <Redirect to="/photos"/>
+        </Switch>
+        :
+        <Switch>
+          <Route exact path="/photos">
+            <IndexPage photos={photos} setPhotos={setPhotos} />
+          </Route>
+          <Route exact path="/photos/:idx">
+            <DetailPage photos={photos} />
           </Route>
           <Route path="/login">
             <AuthPage setUser={setUser} />

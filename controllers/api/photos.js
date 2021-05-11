@@ -30,9 +30,12 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    console.log('req.body');
+    let photo = await Photo
+      .findByIdAndUpdate(req.params.id, { ...req.body });
+    // photo = req.body;
+    // photo.save();
+    res.json(photo);
   } catch {
-    console.log('it\'s an error!')
-    res.status(400).json(err)
+    res.status(400).json(err);
   }
 }

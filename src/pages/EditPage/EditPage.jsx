@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function EditPage({ photos }) {
+export default function EditPage({ photos, updatePhoto }) {
   const { idx } = useParams();
   const photo = photos[idx];
 
@@ -10,14 +10,13 @@ export default function EditPage({ photos }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const updatedPhoto = await photosAPI.update(photo._id, photoData);
-
+    const editedPhoto = await photosAPI.update(photo._id, photoData);
+    updatePhoto(editedPhoto, idx);
   }
 
   function handleChange(evt) {
     setPhotoData({ ...photoData, [evt.target.name]: evt.target.value });
   }
-  
 
   return(
     <div>

@@ -9,8 +9,11 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      <span>Welcome, "user name goes here"{""}</span>
-      &nbsp; | &nbsp;
+      {user ? (
+        <span>Welcome, {user.name}&nbsp; | &nbsp;</span>
+      ) : (
+        ""
+      )}
       <Link to="/photos">All Photos</Link>
       &nbsp; | &nbsp;
       {user ? (

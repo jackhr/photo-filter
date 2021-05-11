@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
 
 export default function DetailPage({ photos }) {
@@ -12,11 +13,13 @@ export default function DetailPage({ photos }) {
   }
   
   const { photoId } = useParams();
-  console.log(photoId);
 
   return(
     <div>
-      {photos[photoId].name}
+      <h1>
+        {photos[photoId].name}
+      </h1>
+      <Link to={`/photos/${photoId}/edit`}>Edit</Link>
     </div>
   );
 }

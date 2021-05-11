@@ -9,3 +9,7 @@ export function getAll() {
 export function create(photoData) {
   return sendRequest(BASE_URL, 'POST', photoData);
 }
+
+export function update(photoId, photoData) {
+  return sendRequest(`${BASE_URL}/${photoId}`, 'PUT', photoData);
+}

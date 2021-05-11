@@ -10,6 +10,7 @@ const Photo = require('../../models/photo');
 module.exports = {
   getAll,
   create,
+  update,
 }
 
 async function getAll(req, res) {
@@ -23,6 +24,15 @@ async function create(req, res) {
     const photo = await Photo.create(req.body);
     res.json(photo);
   } catch {
+    res.status(400).json(err)
+  }
+}
+
+async function update(req, res) {
+  try {
+    console.log('req.body');
+  } catch {
+    console.log('it\'s an error!')
     res.status(400).json(err)
   }
 }

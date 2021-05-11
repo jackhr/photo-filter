@@ -38,8 +38,11 @@ export default function App() {
           <Route exact path="/photos">
             <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
-          <Route path="/photos/:photoId">
+          <Route exact path="/photos/:photoId">
             <DetailPage photos={photos} />
+          </Route>
+          <Route path="/photos/:photoId/edit">
+            <EditPage photos={photos} />
           </Route>
           <Route path="/login">
             <AuthPage setUser={setUser} />

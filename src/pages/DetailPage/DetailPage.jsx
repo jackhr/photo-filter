@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function DetailPage({ photos }) {
+export default function DetailPage({ photos, user }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -16,10 +16,23 @@ export default function DetailPage({ photos }) {
 
   return(
     <div>
-      <h1>
-        {photos[idx].name}
-      </h1>
-      <Link to={`/photos/${idx}/edit`}>Edit</Link>
+      {photos.length ? (
+        <>
+          <h1>
+            {photos[idx].name}
+          </h1>
+          {user && (photos[idx].user._id === user._id) ? (
+            <Link to={`/photos/${idx}/edit`}>Edit</Link>
+          ) : (
+            <>
+              <Link>This will eventually go to the page of the user who uploaded this photo</Link>
+              {/*set a link to the user's page*/}
+            </>
+          )}
+        </>
+      ) : (
+        "wagwan"
+      )}
     </div>
   );
 }

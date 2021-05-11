@@ -14,13 +14,13 @@ module.exports = {
 }
 
 async function getAll(req, res) {
-  const photos = await Photo.find({});
+  const photos = await Photo.find({}).populate('user').exec();
   res.json(photos);
 }
 
 async function create(req, res) {
   try {
-    // req.body.user = req.user._id;
+    req.body.user = req.user._id;
     const photo = await Photo.create(req.body);
     res.json(photo);
   } catch {
@@ -30,12 +30,12 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    let photo = await Photo
-      .findByIdAndUpdate(req.params.id, { ...req.body });
-    // photo = req.body;
-    // photo.save();
+    const photo = await Photo.findOneAndUpdate(
+      {user: req.user._id, _id: req.body._id},
+      {...req.body}
+    );
     res.json(photo);
-  } catch {
+  } catch(err) {
     res.status(400).json(err);
   }
 }

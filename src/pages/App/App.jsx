@@ -34,14 +34,14 @@ export default function App() {
           <Route exact path="/photos">
             <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
-          <Route exact path="/photos/:idx">
-            <DetailPage photos={photos} />
-          </Route>
-          <Route path="/photos/:idx/edit" >
-            <EditPage photos={photos} updatePhoto={updatePhoto} />
-          </Route>
-          <Route path="/photos/new">
+          <Route exact path="/photos/new">
             <PhotoUploadPage addPhoto={addPhoto} />
+          </Route>
+          <Route exact path="/photos/:idx">
+            <DetailPage photos={photos} user={user} />
+          </Route>
+          <Route exact path="/photos/:idx/edit" >
+            <EditPage photos={photos} updatePhoto={updatePhoto} />
           </Route>
           <Redirect to="/photos"/>
         </Switch>

@@ -22,8 +22,9 @@ async function getAll(req, res) {
 async function create(req, res) {
   try {
     req.body.user = req.user._id;
-    const photo = await Photo.create(req.body);
-    res.json(photo);
+    await Photo.create(req.body);
+    const photos = await Photo.find({});
+    res.json(photos);
   } catch {
     res.status(400).json(err)
   }
@@ -31,11 +32,12 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    const photo = await Photo.findOneAndUpdate(
+    await Photo.findOneAndUpdate(
       {user: req.user._id, _id: req.body._id},
       {...req.body}
     );
-    res.json(photo);
+    const newPhotosArray = await Photo.find({});
+    res.json(newPhotosArray);
   } catch(err) {
     res.status(400).json(err);
   }

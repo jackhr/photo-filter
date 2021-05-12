@@ -13,8 +13,9 @@ export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const editedPhoto = await photosAPI.update(photo._id, photoData);
-    updatePhoto(editedPhoto, idx);
+    const newPhotosArray = await photosAPI.update(photo._id, photoData);
+    history.push('/photos');
+    updatePhoto(newPhotosArray);
   }
 
   function handleChange(evt) {

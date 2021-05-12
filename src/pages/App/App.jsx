@@ -15,14 +15,12 @@ export default function App() {
 
   const [photos, setPhotos] = useState([]);
 
-  function addPhoto(photo) {
-    setPhotos([...photos, photo])
+  function addPhoto(newPhotosArray) {
+    setPhotos(newPhotosArray);
   }
 
-  function updatePhoto(photo, idx) {
-    let newPhotos = [...photos];
-    newPhotos[idx] = photo;
-    setPhotos(newPhotos);
+  function updatePhoto(newPhotosArray) {
+    setPhotos(newPhotosArray);
   }
 
   function deletePhoto(newPhotosArray) {

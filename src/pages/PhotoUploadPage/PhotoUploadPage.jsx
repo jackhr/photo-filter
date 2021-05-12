@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
 
 export default function PhotoUploadPage({ addPhoto }) {
   const [photoData, setPhotoData] = useState({ name: "" });
+  const history = useHistory();
 
   async function handleUploadPhoto(evt) {
     evt.preventDefault();
-    const newPhoto = await photosAPI.create(photoData);
-    addPhoto(newPhoto);
+    const newPhotosArray = await photosAPI.create(photoData);
+    addPhoto(newPhotosArray);
+    history.push("/photos");
   }
 
   function handleChange(evt) {

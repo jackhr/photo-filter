@@ -13,3 +13,7 @@ export function create(photoData) {
 export function update(photoId, photoData) {
   return sendRequest(`${BASE_URL}/${photoId}`, 'PUT', photoData);
 }
+
+export function deletePhoto(photoId) {
+  return sendRequest(`${BASE_URL}/${photoId}`, 'DELETE');
+}

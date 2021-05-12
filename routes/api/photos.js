@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const photosCtrl = require('../../controllers/api/photos');
+const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-// const ensureLoggedIn = require('../../config/ensureLoggedIn');
-console.log('here in routes');
 // GET /api/photos
 router.get('/', photosCtrl.getAll);
 // POST /api/photos
-router.post('/', photosCtrl.create);
+router.post('/', ensureLoggedIn, photosCtrl.create);
 // PUT /api/photos/:id
-router.put('/:id', photosCtrl.update);
-
+router.put('/:id', ensureLoggedIn, photosCtrl.update);
+// DELETE /api/photos/:id
+router.delete('/:id', ensureLoggedIn, photosCtrl.delete);
 
 module.exports = router;

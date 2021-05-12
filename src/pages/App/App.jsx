@@ -11,8 +11,7 @@ import EditPage from '../EditPage/EditPage';
 import DetailPage from '../DetailPage/DetailPage';
 
 export default function App() {
-  // const [user, setUser] = useState(getUser());
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getUser());
 
   const [photos, setPhotos] = useState([]);
 
@@ -24,6 +23,10 @@ export default function App() {
     let newPhotos = [...photos];
     newPhotos[idx] = photo;
     setPhotos(newPhotos);
+  }
+
+  function deletePhoto(newPhotosArray) {
+    setPhotos(newPhotosArray);
   }
   
   return (
@@ -41,7 +44,12 @@ export default function App() {
             <DetailPage photos={photos} user={user} />
           </Route>
           <Route exact path="/photos/:idx/edit" >
-            <EditPage photos={photos} updatePhoto={updatePhoto} />
+            <EditPage
+              user={user}
+              photos={photos}
+              updatePhoto={updatePhoto}
+              deletePhoto={deletePhoto}
+            />
           </Route>
           <Redirect to="/photos"/>
         </Switch>

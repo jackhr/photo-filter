@@ -20,6 +20,8 @@ app.use(require('./config/checkToken'));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+
+// Protect the api routes below from anonymous users
 app.use('/api/photos', require('./routes/api/photos'));
 
 // The following "catch all" route (note the *) is necessary

@@ -11,6 +11,7 @@ module.exports = {
   getAll,
   create,
   update,
+  delete: deletePhoto,
 }
 
 async function getAll(req, res) {
@@ -35,6 +36,18 @@ async function update(req, res) {
       {...req.body}
     );
     res.json(photo);
+  } catch(err) {
+    res.status(400).json(err);
+  }
+}
+
+async function deletePhoto(req, res) {
+  try {
+    await Photo.findOneAndDelete(
+      {user: req.user._id, _id: req.params.id}
+    );
+    const newPhotosArray = await Photo.find({});
+    res.json(newPhotosArray);
   } catch(err) {
     res.status(400).json(err);
   }

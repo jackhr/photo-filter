@@ -1,11 +1,12 @@
 const Photo = require('../../models/photo');
-// const {
-//   S3Client,
-//   PutObjectCommand,
-//   CreateBucketCommand
-// } = require("@aws-sdk/client-s3");
-// const REGION = process.env.REGION;
-// const bucket = process.env.S3_BUCKET;
+const uuid = require('uuid');
+const {
+  S3Client,
+  PutObjectCommand,
+} = require("@aws-sdk/client-s3");
+const BASE_URL = process.env.S3_BASE_URL;
+const BUCKET = process.env.S3_BUCKET;
+const REGION = process.env.REGION;
 
 module.exports = {
   getAll,
@@ -21,11 +22,32 @@ async function getAll(req, res) {
 
 async function create(req, res) {
   try {
-    req.body.user = req.user._id;
-    await Photo.create(req.body);
+    const hex = uuid.v4().slice(uuid.v4().length-6);
+    const fileExtension = req.file.mimetype.match(/[/](.*)/)[1].replace('', '.');
+    const uploadParams = {
+      Bucket: process.env.S3_BUCKET,
+      Key: hex + fileExtension,
+      Body: req.file.buffer
+    }
+    const s3 = new S3Client({ region: REGION });
+    const run = async () => {
+      try {
+        const data = await s3.send(new PutObjectCommand(uploadParams));
+        console.log("Success", data);
+      } catch (err) {
+        console.log("Error", err);
+      }
+    };
+    run();
+    const url = `${BASE_URL}${BUCKET}/${uploadParams.Key}`;
+    await Photo.create({
+      ...req.body,
+      imageURL: url,
+      user: req.user._id
+    });
     const photos = await Photo.find({});
     res.json(photos);
-  } catch {
+  } catch(err) {
     res.status(400).json(err)
   }
 }

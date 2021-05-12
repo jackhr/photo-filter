@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
+const upload = require('multer')();
+
 
 require('dotenv').config();
 require('./config/database');
@@ -22,7 +24,7 @@ app.use(require('./config/checkToken'));
 app.use('/api/users', require('./routes/api/users'));
 
 // Protect the api routes below from anonymous users
-app.use('/api/photos', require('./routes/api/photos'));
+app.use('/api/photos', upload.single('photo'), require('./routes/api/photos'));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests

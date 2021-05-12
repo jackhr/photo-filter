@@ -7,7 +7,7 @@ export function getAll() {
 }
 
 export function create(photoData) {
-  return sendRequest(BASE_URL, 'POST', photoData);
+  return sendRequest(BASE_URL, 'POST', photoData, true);
 }
 
 export function update(photoId, photoData) {

@@ -15,10 +15,6 @@ export default function App() {
 
   const [photos, setPhotos] = useState([]);
 
-  function addPhoto(newPhotosArray) {
-    setPhotos(newPhotosArray);
-  }
-
   function updatePhoto(newPhotosArray) {
     setPhotos(newPhotosArray);
   }
@@ -36,7 +32,7 @@ export default function App() {
             <IndexPage photos={photos} setPhotos={setPhotos} />
           </Route>
           <Route exact path="/photos/new">
-            <PhotoUploadPage addPhoto={addPhoto} />
+            <PhotoUploadPage setPhotos={setPhotos} />
           </Route>
           <Route exact path="/photos/:idx">
             <DetailPage photos={photos} user={user} />
@@ -45,8 +41,7 @@ export default function App() {
             <EditPage
               user={user}
               photos={photos}
-              updatePhoto={updatePhoto}
-              deletePhoto={deletePhoto}
+              setPhotos={setPhotos}
             />
           </Route>
           <Redirect to="/photos"/>

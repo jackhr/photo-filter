@@ -11,7 +11,7 @@ export function create(photoData) {
 }
 
 export function update(photoId, photoData) {
-  return sendRequest(`${BASE_URL}/${photoId}`, 'PUT', photoData);
+  return sendRequest(`${BASE_URL}/${photoId}`, 'PUT', photoData, true);
 }
 
 export function deletePhoto(photoId) {

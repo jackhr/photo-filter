@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
 
-export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
+export default function EditPage({ user, photos, setPhotos }) {
   const { idx } = useParams();
   const history = useHistory();
   const photo = photos[idx];
@@ -15,9 +15,9 @@ export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
     const fileField = document.querySelector('input[type="file"]');
     formData.append('name', photoName);
     formData.append('photo', fileField.files[0]);
-    const newPhotosArray = await photosAPI.update(photo._id, photoName);
+    const newPhotosArray = await photosAPI.update(photo._id, formData);
     history.push('/photos');
-    updatePhoto(newPhotosArray);
+    setPhotos(newPhotosArray);
   }
 
   function handleChange(evt) {
@@ -27,7 +27,7 @@ export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
   async function handleDelete() {
     const newPhotosArray = await photosAPI.deletePhoto(photo._id);
     history.push('/photos');
-    deletePhoto(newPhotosArray);
+    setPhotos(newPhotosArray);
   }
 
   return(

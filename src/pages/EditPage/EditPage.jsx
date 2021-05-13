@@ -6,20 +6,22 @@ import * as photosAPI from '../../utilities/photos-api';
 export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
   const { idx } = useParams();
   const history = useHistory();
-
   const photo = photos[idx];
-
-  const [photoData, setPhotoData] = useState({...photo})
+  const [photoName, setPhotoName] = useState(photo.name);
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const newPhotosArray = await photosAPI.update(photo._id, photoData);
+    const formData = new FormData();
+    const fileField = document.querySelector('input[type="file"]');
+    formData.append('name', photoName);
+    formData.append('photo', fileField.files[0]);
+    const newPhotosArray = await photosAPI.update(photo._id, photoName);
     history.push('/photos');
     updatePhoto(newPhotosArray);
   }
 
   function handleChange(evt) {
-    setPhotoData({ ...photoData, [evt.target.name]: evt.target.value });
+    setPhotoName(evt.target.value);
   }
 
   async function handleDelete() {
@@ -37,11 +39,12 @@ export default function EditPage({ user, photos, updatePhoto, deletePhoto }) {
         <label>Name: </label>
         <input
           name="name"
-          value={photoData.name}
+          value={photoName}
           onChange={handleChange}
           type="text"
         />
-        {/* <input type="file" name="image" /> */}
+        <input type="file" name="image" />
+        <button type="submit">Update</button>
       </form>
       {user && (photo.user._id === user._id) ? (
         <button onClick={handleDelete}>DELETE</button>

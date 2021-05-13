@@ -8,10 +8,18 @@ export default function PhotoUploadPage({ addPhoto }) {
 
   async function handleUploadPhoto(evt) {
     evt.preventDefault();
+
+
     const formData = new FormData();
+
+
     const fileField = document.querySelector('input[type="file"]');
+
+
     formData.append('name', photoName);
-    formData.append('photo', fileField.files[0]);
+    fileField.files.length && formData.append('photo', fileField.files[0]);
+
+
     const newPhotosArray = await photosAPI.create(formData);
     console.log(newPhotosArray);
     addPhoto(newPhotosArray);

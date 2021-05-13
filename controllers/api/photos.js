@@ -22,24 +22,7 @@ async function getAll(req, res) {
 
 async function create(req, res) {
   try {
-    const hex = uuid.v4().slice(uuid.v4().length-6);
-    const fileExtension = req.file.mimetype.match(/[/](.*)/)[1].replace('', '.');
-    const uploadParams = {
-      Bucket: process.env.S3_BUCKET,
-      Key: hex + fileExtension,
-      Body: req.file.buffer
-    }
-    const s3 = new S3Client({ region: REGION });
-    const run = async () => {
-      try {
-        const data = await s3.send(new PutObjectCommand(uploadParams));
-        console.log("Success", data);
-      } catch (err) {
-        console.log("Error", err);
-      }
-    };
-    run();
-    const url = `${BASE_URL}${BUCKET}/${uploadParams.Key}`;
+    const url = await getUploadedImageUrl(req);
     await Photo.create({
       ...req.body,
       imageURL: url,
@@ -75,4 +58,28 @@ async function deletePhoto(req, res) {
   } catch(err) {
     res.status(400).json(err);
   }
+}
+
+
+/*-----Helper Functions-----*/
+
+async function getUploadedImageUrl(req) {
+  const hex = uuid.v4().slice(uuid.v4().length-6);
+  const fileExtension = req.file.mimetype.match(/[/](.*)/)[1].replace('', '.');
+  const uploadParams = {
+    Bucket: process.env.S3_BUCKET,
+    Key: hex + fileExtension,
+    Body: req.file.buffer
+  }
+  const s3 = new S3Client({ region: REGION });
+  const run = async () => {
+    try {
+      const data = await s3.send(new PutObjectCommand(uploadParams));
+      console.log("Success", data);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+  run();
+  return `${BASE_URL}${BUCKET}/${uploadParams.Key}`;
 }

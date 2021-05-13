@@ -21,6 +21,8 @@ export default function DetailPage({ photos, user }) {
           <h1>
             {photos[idx].name}
           </h1>
+          <img className="display-image" src={photos[idx].imageURL}/>
+          <br />
           {user && (photos[idx].user._id === user._id) ? (
             <Link to={`/photos/${idx}/edit`}>Edit</Link>
           ) : (

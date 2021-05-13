@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Photo from "../../components/Photo/Photo";
 import * as photosAPI from '../../utilities/photos-api';
+import './DetailPage.css'
 
 export default function DetailPage({ photos, user }) {
   const { idx } = useParams();

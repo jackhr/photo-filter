@@ -6,6 +6,8 @@ import './IndexPage.css';
 
 export default function IndexPage({ photos, setPhotos, user }) {
 
+  const onIndexPage = true;
+
   useEffect(function() {
     async function getPhotos() {
       const photos = await photosAPI.getAll();
@@ -15,22 +17,41 @@ export default function IndexPage({ photos, setPhotos, user }) {
   }, []);
 
   return(
-    <div className="below-nav">
+    <div className="below-nav index-div">
       {photos.length ? (
-        <div>
+        <>
           {photos.map((p, idx) =>
-            <>
-              <Photo photo={p} />
-              <Link to={`/photos/${idx}`}>Details</Link>
-              <hr />
-            </>
+            <div
+              style={{gridColumnStart: (idx % 3) + 1}}
+            >
+              <Link to={`/photos/${idx}`}>
+                <Photo
+                  key={idx}
+                  photo={p}
+                  onIndexPage={onIndexPage}
+                />
+              </Link>
+            </div>
           )}
-        </div>
+        </>
       ) : (
         <>
           {/* If there are no photos at all in the database */}
-          <h1>You're our first customer!</h1>
-          {user && <Link to="/photos/new">Hit me!</Link> }
+          {user ? (
+            <>
+              <h1>You're our first customer!</h1>
+              <Link to="/photos/new">Hit me!</Link>
+            </>
+          ) : (
+            <>
+              <h1>It's just you here...</h1>
+              <span>
+                Click
+                <Link to="/login"> Here </Link>
+                to sign up!
+              </span>
+            </>
+          )}
         </>
       )}
     </div>

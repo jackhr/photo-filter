@@ -1,0 +1,23 @@
+.form-container {
+  width: 50%;
+  margin: 4vmin auto;
+}
+
+.form-container > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > form > button {
+  margin-top: 10px;
+}
+
+.form-container > form > div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.form-container > form > div > input {
+  width: 35vw;
+}

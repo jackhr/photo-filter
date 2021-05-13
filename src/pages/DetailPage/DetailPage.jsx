@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Photo from "../../components/Photo/Photo";
 import * as photosAPI from '../../utilities/photos-api';
 
 export default function DetailPage({ photos, user }) {
+  const { idx } = useParams();
+  const photo = photos[idx];
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -12,18 +15,17 @@ export default function DetailPage({ photos, user }) {
   function handleChange(evt) {
   }
   
-  const { idx } = useParams();
 
   return(
-    <div>
+    <div className="below-nav">
       {photos.length ? (
         <>
-          <h1>
-            {photos[idx].name}
-          </h1>
-          <img className="display-image" src={photos[idx].imageURL}/>
+          <Photo
+            photo={photo}
+            index={idx}
+          />
           <br />
-          {user && (photos[idx].user._id === user._id) ? (
+          {user && (photo.user._id === user._id) ? (
             <Link to={`/photos/${idx}/edit`}>Edit</Link>
           ) : (
             <>

@@ -9,24 +9,21 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      {user ? (
-        <span>Welcome, {user.name}&nbsp; | &nbsp;</span>
-      ) : (
-        ""
-      )}
-      <Link to="/photos">All Photos</Link>
-      &nbsp; | &nbsp;
-      {user ? (
-        <>
-          <Link to="/photos/new">New Photo</Link>
-          &nbsp; | &nbsp;
-          <Link to="" onClick={handleLogOut}>Log Out</Link>
-        </>
+      <div>
+        <img className="logo" src="photo-filter-logo.png" />
+        {user && <span>Welcome, {user.name}&nbsp;</span>}
+      </div>
+      <div>
+        <Link className="nav-link" to="/photos">All Photos</Link>
+        {user ? (
+          <>
+            <Link className="nav-link" to="/photos/new">New Photo</Link>
+            <Link className="nav-link" to="" onClick={handleLogOut}>Log Out</Link>
+          </>
         ) : (
-        <>
-          <Link to="/login">Log In</Link>
-        </>
-      )}
+          <Link className="nav-link" to="/login">Log In</Link>
+        )}
+      </div>
     </nav>
   );
 }

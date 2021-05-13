@@ -19,6 +19,7 @@ const userSchema = new Schema({
     minLength: 3,
     required: true
   }
+  // Have a profile pic attribute with a default image (ice box)
 }, {
   timestamps: true,
   toJSON: {

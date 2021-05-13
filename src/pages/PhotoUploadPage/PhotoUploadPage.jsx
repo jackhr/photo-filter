@@ -22,7 +22,7 @@ export default function PhotoUploadPage({ setPhotos }) {
   }
   
   return(
-    <div>
+    <div className="below-nav">
       <form
         onSubmit={handleUploadPhoto}
         encType="multipart/form-data"

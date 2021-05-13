@@ -29,7 +29,7 @@ export default function App() {
       { user ? 
         <Switch>
           <Route exact path="/photos">
-            <IndexPage photos={photos} setPhotos={setPhotos} />
+            <IndexPage photos={photos} setPhotos={setPhotos} user={user} />
           </Route>
           <Route exact path="/photos/new">
             <PhotoUploadPage setPhotos={setPhotos} />

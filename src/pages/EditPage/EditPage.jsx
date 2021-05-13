@@ -31,7 +31,7 @@ export default function EditPage({ user, photos, setPhotos }) {
   }
 
   return(
-    <div>
+    <div className="below-nav">
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
@@ -43,9 +43,9 @@ export default function EditPage({ user, photos, setPhotos }) {
           onChange={handleChange}
           type="text"
         />
-        <input type="file" name="image" />
         <button type="submit">Update</button>
       </form>
+      <img className="display-image" src={photo.imageURL} alt="test" />
       {user && (photo.user._id === user._id) ? (
         <button onClick={handleDelete}>DELETE</button>
       ) : (

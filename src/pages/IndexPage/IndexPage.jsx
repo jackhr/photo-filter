@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Photo from "../../components/Photo/Photo";
 import * as photosAPI from '../../utilities/photos-api';
+import './IndexPage.css';
 
-export default function IndexPage({ photos, setPhotos }) {
+export default function IndexPage({ photos, setPhotos, user }) {
 
   useEffect(function() {
     async function getPhotos() {
@@ -14,17 +15,23 @@ export default function IndexPage({ photos, setPhotos }) {
   }, []);
 
   return(
-    <div>
+    <div className="below-nav">
       {photos.length ? (
-        photos.map((p, idx) =>
-          <>
-            <Photo photo={p} />
-            <Link to={`/photos/${idx}`}>Details</Link>
-            <hr />
-          </>
-        )
+        <div>
+          {photos.map((p, idx) =>
+            <>
+              <Photo photo={p} />
+              <Link to={`/photos/${idx}`}>Details</Link>
+              <hr />
+            </>
+          )}
+        </div>
       ) : (
-        <h1>Ain't got no photos yet BRUH!</h1>
+        <>
+          {/* If there are no photos at all in the database */}
+          <h1>You're our first customer!</h1>
+          {user && <Link to="/photos/new">Hit me!</Link> }
+        </>
       )}
     </div>
   );

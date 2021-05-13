@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
-import './Photo.css'
 
-export default function Photo({ photo }) {
-  function testerz() {
-    console.log(photo.imageURL);
+export default function Photo({ photo, index }) {
+  function checkIt() {
+    console.log(index);
   }
 
   return (
     <div>
-      <h1>{photo.name}</h1>
-      <img className="display-image" onClick={testerz} src={photo.imageURL} />
+      <span>{photo.user.name}'s photo:</span>
+      <span>{photo.name}</span>
+      <img
+        className={index ? "detail-image" : "index-image"}
+        onClick={checkIt}
+        src={photo.imageURL}
+      />
     </div>
   );
 }

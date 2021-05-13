@@ -8,16 +8,29 @@
   flex-direction: column;
 }
 
-.form-container > form > button {
-  margin-top: 10px;
-}
-
 .form-container > form > div {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
 }
 
+.form-container > form > div:last-child {
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.form-container > form > div:last-child > button {
+  width: 40vw;
+}
+
 .form-container > form > div > input {
-  width: 35vw;
+  width: 40vw;
+  height: 30px;
+}
+
+.login-button-div {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
 }

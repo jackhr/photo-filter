@@ -12,9 +12,7 @@ export default function EditPage({ user, photos, setPhotos }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     const formData = new FormData();
-    const fileField = document.querySelector('input[type="file"]');
     formData.append('name', photoName);
-    formData.append('photo', fileField.files[0]);
     const newPhotosArray = await photosAPI.update(photo._id, formData);
     history.push('/photos');
     setPhotos(newPhotosArray);

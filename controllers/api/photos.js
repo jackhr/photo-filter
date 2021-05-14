@@ -37,13 +37,9 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    const url = await getUploadedImageUrl(req);
     await Photo.findOneAndUpdate(
       {user: req.user._id, _id: req.params.id},
-      {
-        ...req.body,
-        imageURL: url
-      }
+      {name: req.body.name}
     );
       const newPhotosArray = await Photo.find({});
       res.json(newPhotosArray);

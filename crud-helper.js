@@ -3,7 +3,8 @@ require('dotenv').config();
 require('./config/database');
 
 // Require the Mongoose models
-const User = require('./models/user');
+// const User = require('./models/user');
+const Photo = require('./models/photo');
 // const Item = require('./models/item');
 // const Category = require('./models/category');
 // const Order = require('./models/order');
@@ -16,7 +17,7 @@ async function main() {
   // });
   // console.log(user);
   // List all users
-  const users = await User.find({});
+  const users = await Photo.find({});
   console.log(users);
 
 

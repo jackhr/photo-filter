@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import * as userService from '../../utilities/users-service';
 
 export default function Photo({ index, photo, onIndexPage }) {
   const imageClass = onIndexPage ? "index-image" : "detail-image";
@@ -12,6 +11,7 @@ export default function Photo({ index, photo, onIndexPage }) {
         <img  
           className={imageClass}
           src={photo.imageURL}
+          alt={`Unique photo that has been uploaded by the user: ${photo.user.name}`}
         />
       </Link>
     </>

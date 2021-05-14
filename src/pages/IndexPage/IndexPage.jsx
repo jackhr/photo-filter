@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Photo from "../../components/Photo/Photo";
 import * as photosAPI from '../../utilities/photos-api';

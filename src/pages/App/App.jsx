@@ -4,25 +4,16 @@ import { getUser } from '../../utilities/users-service';
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
-import LandingPage from '../LandingPage/LandingPage';
 import PhotoUploadPage from '../PhotoUploadPage/PhotoUploadPage';
 import IndexPage from '../IndexPage/IndexPage';
 import EditPage from '../EditPage/EditPage';
 import DetailPage from '../DetailPage/DetailPage';
+// import LandingPage from '../LandingPage/LandingPage'; (ice box)
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-
   const [photos, setPhotos] = useState([]);
 
-  function updatePhoto(newPhotosArray) {
-    setPhotos(newPhotosArray);
-  }
-
-  function deletePhoto(newPhotosArray) {
-    setPhotos(newPhotosArray);
-  }
-  
   return (
     <main className="App">
       <NavBar user={user} setUser={setUser} />
@@ -58,7 +49,7 @@ export default function App() {
             <AuthPage setUser={setUser} />
           </Route>
           <Redirect to="/photos"/>
-          {/* <LandingPage /> */}
+          {/* <LandingPage /> (ice box) */}
         </Switch>
       }
     </main>

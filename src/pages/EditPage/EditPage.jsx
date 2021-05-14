@@ -36,7 +36,7 @@ export default function EditPage({ user, photos, setPhotos }) {
         encType="multipart/form-data"
       >
         <div className="update-photo-div">
-          <label>Name:</label>
+          <label>Name</label>
           <input
             name="name"
             value={photoName}

@@ -2,20 +2,11 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Photo from "../../components/Photo/Photo";
-import * as photosAPI from '../../utilities/photos-api';
 import './DetailPage.css'
 
 export default function DetailPage({ photos, user }) {
   const { idx } = useParams();
   const photo = photos[idx];
-
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-  }
-
-  function handleChange(evt) {
-  }
-  
 
   return(
     <div className="below-nav">
@@ -32,7 +23,6 @@ export default function DetailPage({ photos, user }) {
           ) : (
             <div className="more-from-user-div">
               <Link>More from <span>{photo.user.name}</span></Link>
-              {/*set a link to the user's page*/}
             </div>
           )}
         </>

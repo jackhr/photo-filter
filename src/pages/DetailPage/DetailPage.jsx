@@ -25,14 +25,15 @@ export default function DetailPage({ photos, user }) {
             photo={photo}
             index={idx}
           />
-          <br />
           {user && (photo.user._id === user._id) ? (
-            <Link to={`/photos/${idx}/edit`}>Edit</Link>
+            <div className="edit-link-div">
+              <Link className="edit-link" to={`/photos/${idx}/edit`}>Edit</Link>
+            </div>
           ) : (
-            <>
-              <Link>This will eventually go to the page of the user who uploaded this photo</Link>
+            <div className="more-from-user-div">
+              <Link>More from <span>{photo.user.name}</span></Link>
               {/*set a link to the user's page*/}
-            </>
+            </div>
           )}
         </>
       ) : (

@@ -2,3 +2,25 @@
   max-width: 70vw;
   max-height: 60vh;
 }
+
+.detail-photo-name {
+  color:rgb(94, 94, 88);
+}
+
+.more-from-user-div, .edit-link-div {
+  display: flex;
+  justify-content: flex-end;
+  width: 75%;
+}
+
+.more-from-user-div > a > span {
+  color: rgb(0, 136, 134);
+  font-size: 3.6vmin;
+  font-weight: 500;
+}
+
+.edit-link {
+  font-size: 4vmin;
+  color: rgb(50, 159, 33);
+  font-weight: 500;
+}

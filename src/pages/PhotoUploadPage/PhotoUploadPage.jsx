@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
+import './PhotoUploadPage.css';
 
 export default function PhotoUploadPage({ setPhotos }) {
   const [photoName, setPhotoName] = useState("My New Photo");
@@ -24,17 +25,21 @@ export default function PhotoUploadPage({ setPhotos }) {
   return(
     <div className="below-nav">
       <form
+        className="upload-form"
         onSubmit={handleUploadPhoto}
         encType="multipart/form-data"
       >
-        <label>Name: </label>
-        <input
-          name="name"
-          value={photoName}
-          onChange={handleChange}
-          type="text"
-        />
+        <div>
+          <label>Name</label>
+          <input
+            name="name"
+            value={photoName}
+            onChange={handleChange}
+            type="text"
+          />
+        </div>
         <input type="file" name="imageURL" />
+        <button type="submit">Upload</button>
       </form>
     </div>
   );

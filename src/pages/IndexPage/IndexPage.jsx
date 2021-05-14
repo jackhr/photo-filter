@@ -24,13 +24,17 @@ export default function IndexPage({ photos, setPhotos, user }) {
             <div
               style={{gridColumnStart: (idx % 3) + 1}}
             >
-              <Link to={`/photos/${idx}`}>
-                <Photo
-                  key={idx}
-                  photo={p}
-                  onIndexPage={onIndexPage}
-                />
-              </Link>
+              <Photo
+                key={idx}
+                index={idx}
+                photo={p}
+                onIndexPage={onIndexPage}
+              />
+              <div className="photo-credit-div">
+                <p>Uploaded by
+                  <span> {p.user.name}</span>
+                </p>
+              </div>
             </div>
           )}
         </>
@@ -44,11 +48,11 @@ export default function IndexPage({ photos, setPhotos, user }) {
             </>
           ) : (
             <>
-              <h1>It's just you here...</h1>
+              <h1>It's just your pretty face here...</h1>
               <span>
                 Click
                 <Link to="/login"> Here </Link>
-                to sign up!
+                to upload some photos!
               </span>
             </>
           )}

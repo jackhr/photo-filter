@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
+  background-color: rgb(255, 254, 240);
 }
 
 a {
@@ -21,9 +22,10 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 8px 20px 8px 20px;
-  background-color: rgba(0, 255, 255, 0.817);
+  background-color: rgba(180, 213, 213, 0.817);
   position: fixed;
   width: 100%;
+  z-index: 1;
 }
 
 .logo {

@@ -28,6 +28,18 @@ nav {
   z-index: 1;
 }
 
+nav div:first-child {
+  display: flex;
+  align-items:flex-end;
+  justify-content: space-between;
+  width: 235px;
+}
+
+nav div:first-child > span > span {
+  color: teal;
+  font-size: 30px;
+}
+
 .logo {
   height: 3rem;
 }

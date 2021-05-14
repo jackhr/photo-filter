@@ -11,7 +11,7 @@ export default function NavBar({ user, setUser }) {
     <nav>
       <div>
         <img className="logo" src="photo-filter-logo.png" />
-        {user && <span>Welcome, {user.name}&nbsp;</span>}
+        {user && <span>Welcome, <span>{user.name}</span>&nbsp;</span>}
       </div>
       <div>
         <Link className="nav-link" to="/photos">All Photos</Link>

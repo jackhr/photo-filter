@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as photosAPI from '../../utilities/photos-api';
+import './EditPage.css';
 
 export default function EditPage({ user, photos, setPhotos }) {
   const { idx } = useParams();
@@ -34,18 +35,25 @@ export default function EditPage({ user, photos, setPhotos }) {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <label>Name: </label>
-        <input
-          name="name"
-          value={photoName}
-          onChange={handleChange}
-          type="text"
-        />
-        <button type="submit">Update</button>
+        <div className="update-photo-div">
+          <label>Name:</label>
+          <input
+            name="name"
+            value={photoName}
+            onChange={handleChange}
+            type="text"
+          />
+        </div>
+        <div className="update-photo-div button-div">
+          <button type="submit">Update</button>
+        </div>
       </form>
-      <img className="display-image" src={photo.imageURL} alt="test" />
+      <img className="detail-image" src={photo.imageURL} alt="test" />
       {user && (photo.user._id === user._id) ? (
-        <button onClick={handleDelete}>DELETE</button>
+        <div className="delete-button-div">
+          <Link to={`/photos/${idx}`}>Go Back</Link>
+          <button onClick={handleDelete}>DELETE</button>
+        </div>
       ) : (
         <>
           <p>You shouldn't even be here!</p>

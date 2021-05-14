@@ -1,0 +1,35 @@
+.update-photo-div {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  justify-content: space-between;
+  margin: 0 auto 10px;
+}
+
+.update-photo-div > input {
+  width: 80%;
+  height: 30px;
+}
+
+.button-div {
+  justify-content: flex-end;
+}
+
+.button-div > button {
+  width: 80%
+}
+
+.delete-button-div {
+  display: flex;
+  justify-content: space-between;
+  width: 45%;
+  margin: 0 auto;
+}
+
+.delete-button-div > button {
+  border: none;
+  background: transparent;
+  color: brown;
+  font-weight: 900;
+  font-size: 4vmin;
+}

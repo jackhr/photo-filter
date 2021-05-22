@@ -14,6 +14,6 @@ export function update(photoId, photoData) {
   return sendRequest(`${BASE_URL}/${photoId}`, 'PUT', photoData, true);
 }
 
-export function deletePhoto(photoId) {
-  return sendRequest(`${BASE_URL}/${photoId}`, 'DELETE');
+export function deletePhoto(AWSKey) {
+  return sendRequest(`${BASE_URL}/${AWSKey}`, 'DELETE');
 }

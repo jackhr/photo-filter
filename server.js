@@ -4,7 +4,6 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const upload = require('multer')();
 
-
 require('dotenv').config();
 require('./config/database');
 

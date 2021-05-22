@@ -10,6 +10,6 @@ router.post('/', ensureLoggedIn, photosCtrl.create);
 // PUT /api/photos/:id
 router.put('/:id', ensureLoggedIn, photosCtrl.update);
 // DELETE /api/photos/:id
-router.delete('/:id', ensureLoggedIn, photosCtrl.delete);
+router.delete('/:key', ensureLoggedIn, photosCtrl.delete);
 
 module.exports = router;

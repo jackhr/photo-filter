@@ -24,7 +24,7 @@ export default function EditPage({ user, photos, setPhotos }) {
   }
 
   async function handleDelete() {
-    const newPhotosArray = await photosAPI.deletePhoto(photo._id);
+    const newPhotosArray = await photosAPI.deletePhoto(photo.AWSKey);
     history.push('/photos');
     setPhotos(newPhotosArray);
   }

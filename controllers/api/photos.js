@@ -22,6 +22,7 @@ async function getAll(req, res) {
   res.json(photos);
 }
 
+
 async function create(req, res) {
   try {
     const AWSData = await getUploadedImageUrl(req.file);

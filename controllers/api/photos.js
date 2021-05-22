@@ -1,8 +1,10 @@
 const Photo = require('../../models/photo');
 const uuid = require('uuid');
+const Jimp = require('jimp');
 const {
   S3Client,
   PutObjectCommand,
+  DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
 const BASE_URL = process.env.S3_BASE_URL;
 const BUCKET = process.env.S3_BUCKET;
@@ -22,10 +24,11 @@ async function getAll(req, res) {
 
 async function create(req, res) {
   try {
-    const url = await getUploadedImageUrl(req);
+    const AWSData = await getUploadedImageUrl(req.file);
     await Photo.create({
       ...req.body,
-      imageURL: url,
+      imageURL: AWSData.url,
+      AWSKey: AWSData.key,
       user: req.user._id
     });
     const photos = await Photo.find({});
@@ -60,16 +63,15 @@ async function deletePhoto(req, res) {
   }
 }
 
-
 /*-----Helper Functions-----*/
 
-async function getUploadedImageUrl(req) {
+async function getUploadedImageUrl(photo) {
   const hex = uuid.v4().slice(uuid.v4().length-6);
-  const fileExtension = req.file.mimetype.match(/[/](.*)/)[1].replace('', '.');
+  const fileExtension = photo.mimetype.match(/[/](.*)/)[1].replace('', '.');
   const uploadParams = {
     Bucket: process.env.S3_BUCKET,
     Key: hex + fileExtension,
-    Body: req.file.buffer
+    Body: photo.buffer
   }
   const s3 = new S3Client({ region: REGION });
   const run = async () => {
@@ -81,5 +83,25 @@ async function getUploadedImageUrl(req) {
     }
   };
   run();
-  return `${BASE_URL}${BUCKET}/${uploadParams.Key}`;
+  return {
+    url: `${BASE_URL}${BUCKET}/${uploadParams.Key}`,
+    key: uploadParams.Key,
+  } 
+}
+
+async function deleteImage(photo) {
+  const uploadParams = {
+    Bucket: process.env.S3_BUCKET,
+    Key: photo.AWSKey,
+  }
+  const s3 = new S3Client({ region: REGION });
+  const run = async () => {
+    try {
+      await s3.send(new DeleteObjectCommand(uploadParams));
+      console.log("Success");
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+  run();
 }

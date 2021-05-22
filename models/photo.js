@@ -5,6 +5,7 @@ const photoSchema = new Schema({
   name: String,
   user: {type: Schema.Types.ObjectId, ref: 'User'},
   imageURL: String,
+  AWSKey: String,
 }, {
   timestamps: true,
 });

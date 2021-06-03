@@ -5,6 +5,7 @@ const {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
 } = require("@aws-sdk/client-s3");
 const BASE_URL = process.env.S3_BASE_URL;
 const BUCKET = process.env.S3_BUCKET;
@@ -22,19 +23,15 @@ async function getAll(req, res) {
   res.json(photos);
 }
 
-
 async function create(req, res) {
   try {
-    // Based on the button clicked on the UI, a certain helper function will run to use certain jimp methods. The resulting promise will be assigned to avariable and then passed to the getUploadedImageUrl function.
-    // const img = await Jimp.read(req.file.buffer);
-    // img.quality(60);
-    //   // .resize(250, 250);
-    // const newImg = await img.getBufferAsync(req.file.mimetype);
-    const AWSData = await getUploadedImageUrl(req.file);
+    // console.log(await Jimp.read(req.file.buffer));
+    // console.log(req.file.buffer);
+    const AWSData = await getNewImageUrl(req.file);
     await Photo.create({
       ...req.body,
-      imageURL: AWSData.url,
       AWSKey: AWSData.key,
+      sourceURL: AWSData.url,
       user: req.user._id
     });
     const photos = await Photo.find({});
@@ -50,8 +47,8 @@ async function update(req, res) {
       {user: req.user._id, _id: req.params.id},
       {name: req.body.name}
     );
-      const newPhotosArray = await Photo.find({});
-      res.json(newPhotosArray);
+    const newPhotosArray = await Photo.find({});
+    res.json(newPhotosArray);
   } catch(err) {
     res.status(400).json(err);
   }
@@ -72,19 +69,23 @@ async function deletePhoto(req, res) {
 
 /*-----Helper Functions-----*/
 
-async function getUploadedImageUrl(photo) {
+function generateAWSKey(photo) {
   const hex = uuid.v4().slice(uuid.v4().length-6);
   const fileExtension = photo.mimetype.match(/[/](.*)/)[1].replace('', '.');
+  return hex + fileExtension;
+}
+
+async function getNewImageUrl(photo, edit=false, key) {
   const uploadParams = {
     Bucket: process.env.S3_BUCKET,
-    Key: hex + fileExtension,
-    Body: photo.buffer
+    Key: edit ? key : generateAWSKey(photo),
+    Body: edit ? photo : photo.buffer
   }
   const s3 = new S3Client({ region: REGION });
   const run = async () => {
     try {
       const data = await s3.send(new PutObjectCommand(uploadParams));
-      console.log("Success", data);
+      console.log(`Successfully uploaded ${uploadParams.Key}:`, data);
     } catch (err) {
       console.log("Error", err);
     }
@@ -105,7 +106,25 @@ async function deleteImage(key) {
   const run = async () => {
     try {
       await s3.send(new DeleteObjectCommand(uploadParams));
-      console.log("Success");
+      console.log("Successfully deleted", key);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+  run();
+}
+
+async function getImage(key) {
+  const uploadParams = {
+    Bucket: process.env.S3_BUCKET,
+    Key: key,
+  }
+  const s3 = new S3Client({ region: REGION });
+  const run = async () => {
+    try {
+      const photo = await s3.send(new GetObjectCommand(uploadParams));
+      console.log("Success", photo);
+      return setTimeout(function() {return photo}, 3000);
     } catch (err) {
       console.log("Error", err);
     }

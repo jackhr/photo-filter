@@ -9,7 +9,7 @@ router.get('/', photosCtrl.getAll);
 router.post('/', ensureLoggedIn, photosCtrl.create);
 // PUT /api/photos/:id
 router.put('/:id', ensureLoggedIn, photosCtrl.update);
-// DELETE /api/photos/:id
+// DELETE /api/photos/:key
 router.delete('/:key', ensureLoggedIn, photosCtrl.delete);
 
 module.exports = router;

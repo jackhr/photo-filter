@@ -8,7 +8,6 @@ export async function sendRequest(url, method = 'GET', payload = null, payloadIs
     options.headers = payloadIsFormData ? {} : { 'Content-Type': 'application/json' };
     options.body = payloadIsFormData ? payload : JSON.stringify(payload);
   }
-  console.log(payload);
   const token = getToken();
   if (token) {
     options.headers = options.headers || {};

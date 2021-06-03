@@ -48,7 +48,7 @@ export default function EditPage({ user, photos, setPhotos }) {
           <button type="submit">Update</button>
         </div>
       </form>
-      <img className="detail-image" src={photo.imageURL} alt="test" />
+      <img className="detail-image" src={photo.sourceURL} alt="test" />
       {user && (photo.user._id === user._id) ? (
         <div className="delete-button-div">
           <Link to={`/photos/${idx}`}>Go Back</Link>

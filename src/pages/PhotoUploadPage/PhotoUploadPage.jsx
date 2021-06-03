@@ -38,7 +38,7 @@ export default function PhotoUploadPage({ setPhotos }) {
             type="text"
           />
         </div>
-        <input type="file" name="imageURL" required/>
+        <input type="file" name="sourceURL" required/>
         <button type="submit">Upload</button>
       </form>
     </div>

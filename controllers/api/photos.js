@@ -52,12 +52,19 @@ async function update(req, res) {
       Key: req.body.key,
     }
     const s3 = new S3Client({ region: REGION });
-    const AWSData = await s3.send(new GetObjectCommand(uploadParams));
-    const buffer = await getStream.buffer(AWSData.Body);
-    const img = await Jimp.read(buffer);
-    console.log(img);
-
+    const AWSResponse = await s3.send(new GetObjectCommand(uploadParams));
+    const buffer = await getStream.buffer(AWSResponse.Body);
+    const original = await Jimp.read(buffer);
+    const clone = original.clone();
+    clone.invert();
+    const newBuffer = await clone.getBufferAsync(original._originalMime);
+    const AWSData = await getNewImageUrl({
+      buffer: newBuffer,
+      mimetype: original._originalMime
+    });
     photo.name = req.body.name;
+    photo.AWSKey = AWSData.key;
+    photo.sourceURL= AWSData.url;
     await photo.save();
     const newPhotosArray = await Photo.find({});
     res.json(newPhotosArray);

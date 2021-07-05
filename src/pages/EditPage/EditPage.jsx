@@ -14,6 +14,7 @@ export default function EditPage({ user, photos, setPhotos }) {
     evt.preventDefault();
     const formData = new FormData();
     formData.append('name', photoName);
+    formData.append('key', photo.AWSKey);
     const newPhotosArray = await photosAPI.update(photo._id, formData);
     history.push('/photos');
     setPhotos(newPhotosArray);

@@ -1,6 +1,7 @@
 const Photo = require('../../models/photo');
 const uuid = require('uuid');
 const Jimp = require('jimp');
+const getStream = require('get-stream');
 const {
   S3Client,
   PutObjectCommand,
@@ -25,8 +26,6 @@ async function getAll(req, res) {
 
 async function create(req, res) {
   try {
-    // console.log(await Jimp.read(req.file.buffer));
-    // console.log(req.file.buffer);
     const AWSData = await getNewImageUrl(req.file);
     await Photo.create({
       ...req.body,
@@ -36,20 +35,33 @@ async function create(req, res) {
     });
     const photos = await Photo.find({});
     res.json(photos);
-  } catch(err) {
+  } catch (err) {
     res.status(400).json(err)
   }
 }
 
 async function update(req, res) {
   try {
-    await Photo.findOneAndUpdate(
-      {user: req.user._id, _id: req.params.id},
-      {name: req.body.name}
-    );
+    // Based on the button clicked on the UI, a certain helper function will run to use certain jimp methods. The resulting promise will be assigned to avariable and then passed to the getUploadedImageUrl function.
+    // Need the photo key
+    // Assign sourceBuffer and currentBuffer to the photo model
+    const photo = await Photo.findById(req.params.id);
+
+    const uploadParams = {
+      Bucket: process.env.S3_BUCKET,
+      Key: req.body.key,
+    }
+    const s3 = new S3Client({ region: REGION });
+    const AWSData = await s3.send(new GetObjectCommand(uploadParams));
+    const buffer = await getStream.buffer(AWSData.Body);
+    const img = await Jimp.read(buffer);
+    console.log(img);
+
+    photo.name = req.body.name;
+    await photo.save();
     const newPhotosArray = await Photo.find({});
     res.json(newPhotosArray);
-  } catch(err) {
+  } catch (err) {
     res.status(400).json(err);
   }
 }
@@ -57,12 +69,12 @@ async function update(req, res) {
 async function deletePhoto(req, res) {
   try {
     await Photo.findOneAndDelete(
-      {user: req.user._id, AWSKey: req.params.key}
+      { user: req.user._id, AWSKey: req.params.key }
     );
     deleteImage(req.params.key);
     const newPhotosArray = await Photo.find({});
     res.json(newPhotosArray);
-  } catch(err) {
+  } catch (err) {
     res.status(400).json(err);
   }
 }
@@ -70,16 +82,16 @@ async function deletePhoto(req, res) {
 /*-----Helper Functions-----*/
 
 function generateAWSKey(photo) {
-  const hex = uuid.v4().slice(uuid.v4().length-6);
+  const hex = uuid.v4().slice(uuid.v4().length - 6);
   const fileExtension = photo.mimetype.match(/[/](.*)/)[1].replace('', '.');
   return hex + fileExtension;
 }
 
-async function getNewImageUrl(photo, edit=false, key) {
+async function getNewImageUrl(photo) {
   const uploadParams = {
-    Bucket: process.env.S3_BUCKET,
-    Key: edit ? key : generateAWSKey(photo),
-    Body: edit ? photo : photo.buffer
+    Bucket: BUCKET,
+    Key: generateAWSKey(photo),
+    Body: photo.buffer
   }
   const s3 = new S3Client({ region: REGION });
   const run = async () => {
@@ -94,7 +106,7 @@ async function getNewImageUrl(photo, edit=false, key) {
   return {
     url: `${BASE_URL}${BUCKET}/${uploadParams.Key}`,
     key: uploadParams.Key,
-  } 
+  };
 }
 
 async function deleteImage(key) {
@@ -124,7 +136,6 @@ async function getImage(key) {
     try {
       const photo = await s3.send(new GetObjectCommand(uploadParams));
       console.log("Success", photo);
-      return setTimeout(function() {return photo}, 3000);
     } catch (err) {
       console.log("Error", err);
     }

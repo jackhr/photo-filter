@@ -11,7 +11,7 @@ export default function Photo({ index, photo, onIndexPage }) {
         <img  
           className={imageClass}
           src={photo.sourceURL}
-          alt={`Unique photo that has been uploaded by the user: ${photo.user.name}.`}
+          alt={`This has been uploaded by the user: ${photo.user.name}.`}
         />
       </Link>
     </>

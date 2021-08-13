@@ -8,7 +8,7 @@ export default function IndexPage({ photos, setPhotos, user }) {
 
   const onIndexPage = true;
 
-  useEffect(function() {
+  useEffect(function () {
     async function getPhotos() {
       const photos = await photosAPI.getAll();
       setPhotos(photos);
@@ -16,14 +16,12 @@ export default function IndexPage({ photos, setPhotos, user }) {
     getPhotos();
   }, []);
 
-  return(
+  return (
     <div className="below-nav index-div">
       {photos.length ? (
         <>
           {photos.map((p, idx) =>
-            <div
-              style={{gridColumnStart: (idx % 3) + 1}}
-            >
+            <div>
               <Photo
                 key={idx}
                 index={idx}

@@ -1,33 +1,52 @@
 .index-image {
-  max-height: 40vh;
-  max-width: 30vw;
+  max-height   : 40vh;
+  max-width    : 90%;
   border-radius: 8px;
-  filter: drop-shadow(0 0 4px rgb(57, 57, 57));
+  filter       : drop-shadow(0 0 4px rgb(57, 57, 57));
 }
 
 .index-photo-name {
-  color:rgb(99, 99, 99);
+  color: rgb(99, 99, 99);
 }
 
 .index-div {
-  display: grid;
+  display              : grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding-left: 2vmin;
-  padding-right: 2vmin;
+  padding-left         : 2vmin;
+  padding-right        : 2vmin;
 }
 
 .photo-credit-div {
-  width: 90%;
-  display: flex;
+  width          : 90%;
+  display        : flex;
   justify-content: flex-end;
 }
 
-.photo-credit-div > p {
-  margin: 0;
+.photo-credit-div>p {
+  margin   : 0;
   font-size: 3vmin;
 }
 
-.photo-credit-div > p > span {
-  color: rgb(0, 136, 134);
+.photo-credit-div>p>span {
+  color    : rgb(0, 136, 134);
   font-size: 3.6vmin;
+}
+
+@media only screen and (max-width: 1200px) {
+  .index-div {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .index-div {
+    grid-template-columns: 1fr;
+  }
+
+  .index-image {
+    max-height   : 40vh;
+    max-width    : 80vw;
+    border-radius: 8px;
+    filter       : drop-shadow(0 0 4px rgb(57, 57, 57));
+  }
 }

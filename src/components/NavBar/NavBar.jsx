@@ -42,6 +42,11 @@ export default function NavBar({ user, setUser }) {
     HBIconOpen.style.display = "inherit";
   }
 
+  function handleClickLogOut() {
+    handleLogOut();
+    handleCloseMenu();
+  }
+
   return (
     <nav>
       <div>
@@ -71,7 +76,6 @@ export default function NavBar({ user, setUser }) {
         className="hamburger-icon"
         onClick={handleHamburgerMenu}
         style={
-          // {}
           { display: "none" }
         }
         src="hamburger-icon-close.webp"
@@ -82,7 +86,7 @@ export default function NavBar({ user, setUser }) {
         {user ? (
           <>
             <Link onClick={handleCloseMenu} className="nav-link" to="/photos/new">New Photo</Link>
-            <Link onClick={handleCloseMenu} className="nav-link" to="" onClick={handleLogOut}>Log Out</Link>
+            <Link onClick={handleCloseMenu} className="nav-link" to="" onClick={handleClickLogOut}>Log Out</Link>
           </>
         ) : (
           <Link onClick={handleCloseMenu} className="nav-link" to="/login">Log In</Link>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
-import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import './NavBar.css'
 
 export default function NavBar({ user, setUser }) {
@@ -15,27 +14,32 @@ export default function NavBar({ user, setUser }) {
   function handleHamburgerMenu(evt) {
     const navEl = document.getElementsByTagName('nav')[0];
     const linkDivEl = document.getElementById('hamburger-links-div');
-    const HBIcon = evt.target
+    const HBIconOpen = document.getElementById('hamburger-icon-open');
+    const HBIconClose = document.getElementById('hamburger-icon-close');
     if (menuIsOpen) {
       navEl.className = "";
       linkDivEl.style.display = "none";
-      HBIcon.src = "hamburger-icon-open.svg.png";
+      evt.target.style.display = "none";
+      HBIconOpen.style.display = "inherit";
     } else {
       navEl.className = "open-menu";
       linkDivEl.style.display = "flex";
-      HBIcon.src = "hamburger-icon-close.webp";
+      evt.target.style.display = "none"
+      HBIconClose.style.display = "inherit";
     }
     setMenuIsOpen(!menuIsOpen);
   }
 
   function handleCloseMenu() {
     const navEl = document.getElementsByTagName('nav')[0];
-    const HBIcon = document.getElementById('hamburger-icon');
+    const HBIconOpen = document.getElementById('hamburger-icon-open');
+    const HBIconClose = document.getElementById('hamburger-icon-close');
     const linkDivEl = document.getElementById('hamburger-links-div');
     setMenuIsOpen(false);
     navEl.className = "";
     linkDivEl.style.display = "none";
-    HBIcon.src = "hamburger-icon-open.svg.png"
+    HBIconClose.style.display = "none";
+    HBIconOpen.style.display = "inherit";
   }
 
   return (
@@ -55,7 +59,24 @@ export default function NavBar({ user, setUser }) {
           <Link className="nav-link" to="/login">Log In</Link>
         )}
       </div>
-      <img onClick={handleHamburgerMenu} id="hamburger-icon" src="hamburger-icon-open.svg.png" alt="Hamburger menu icon." />
+      <img
+        id="hamburger-icon-open"
+        className="hamburger-icon"
+        onClick={handleHamburgerMenu}
+        src="hamburger-icon-open.svg.png"
+        alt="Hamburger menu icon."
+      />
+      <img
+        id="hamburger-icon-close"
+        className="hamburger-icon"
+        onClick={handleHamburgerMenu}
+        style={
+          // {}
+          { display: "none" }
+        }
+        src="hamburger-icon-close.webp"
+        alt="Hamburger menu icon."
+      />
       <div id="hamburger-links-div">
         <Link onClick={handleCloseMenu} className="nav-link" to="/photos">All Photos</Link>
         {user ? (

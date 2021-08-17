@@ -41,7 +41,7 @@ nav div:first-child>span>span {
   background-color: rgba(180, 213, 213, 0.95);
 }
 
-#hamburger-icon {
+.hamburger-icon {
   display: none;
   height : 2rem;
   cursor : pointer;
@@ -60,7 +60,7 @@ nav div:first-child>span>span {
     display: none;
   }
 
-  #hamburger-icon {
+  .hamburger-icon {
     display: inherit;
   }
 

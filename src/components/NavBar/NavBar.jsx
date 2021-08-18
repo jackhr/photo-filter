@@ -50,7 +50,9 @@ export default function NavBar({ user, setUser }) {
   return (
     <nav>
       <div>
-        <img className="logo" src="photo-filter-logo.png" alt="Photo Filter logo: Multi-coloured apeture whit text 'Photo Filter' written below." />
+        <Link to="/">
+          <img className="logo" src="photo-filter-logo.png" alt="Photo Filter logo: Multi-coloured apeture whit text 'Photo Filter' written below." />
+        </Link>
         {user && <span>Welcome, <span>{user.name}</span>&nbsp;</span>}
       </div>
       <div id="desktop-links-div">

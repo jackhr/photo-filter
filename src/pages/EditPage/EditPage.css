@@ -1,7 +1,8 @@
 .update-photo-div {
   display: flex;
   align-items: center;
-  width: 40%;
+  width: 42rem;
+  max-width: 90vw;
   justify-content: space-between;
   margin: 0 auto 10px;
 }

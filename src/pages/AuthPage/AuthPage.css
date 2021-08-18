@@ -1,5 +1,6 @@
 .form-container {
-  width: 50%;
+  width: 60rem;
+  max-width: 90vw;
   margin: 4vmin auto;
 }
 
@@ -20,16 +21,19 @@
 }
 
 .form-container > form > div:last-child > button {
-  width: 40vw;
+  width: 45rem;
+  max-width: 70vw;
 }
 
 .form-container > form > div > input {
-  width: 40vw;
+  width: 45rem;
+  max-width: 70vw;
   height: 30px;
 }
 
 .login-button-div {
-  width: 50%;
+  width: 60rem;
+  max-width: 90vw;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;

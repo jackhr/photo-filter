@@ -56,8 +56,14 @@ nav div:first-child>span>span {
 }
 
 @media only screen and (min-width: 900px) {
-  .hamburger-icon {
+
+  .hamburger-icon,
+  #hamburger-links-div {
     display: none !important;
+  }
+
+  nav {
+    height: 4rem !important;
   }
 }
 

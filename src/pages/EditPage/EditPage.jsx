@@ -20,6 +20,18 @@ export default function EditPage({ user, photos, setPhotos }) {
     setPhotos(newPhotosArray);
   }
 
+  async function handleSubmitTest(evt) {
+    console.log('yup');
+    evt.preventDefault();
+    const formData = new FormData();
+    formData.append('name', photoName);
+    formData.append('key', photo.AWSKey);
+    formData.append('isTest', true);
+    const newPhotosArray = await photosAPI.update(photo._id, formData);
+    history.push('/photos');
+    setPhotos(newPhotosArray);
+  }
+
   function handleChange(evt) {
     setPhotoName(evt.target.value);
   }
@@ -47,6 +59,14 @@ export default function EditPage({ user, photos, setPhotos }) {
         </div>
         <div className="update-photo-div button-div">
           <button type="submit">Update</button>
+        </div>
+      </form>
+      <form
+        onSubmit={handleSubmitTest}
+        encType="multipart/form-data"
+      >
+        <div className="update-photo-div button-div">
+          <button type="submit">test</button>
         </div>
       </form>
       <img className="detail-image" src={photo.sourceURL} alt="test" />

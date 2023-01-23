@@ -56,7 +56,12 @@ async function update(req, res) {
     const buffer = await getStream.buffer(AWSResponse.Body);
     const original = await Jimp.read(buffer);
     const clone = original.clone();
-    clone.invert();
+    if (req.body.isTest) {
+      console.log('we are testing', req.body.isTest, typeof req.body.isTest);
+      clone.normalize();
+    } else {
+      clone.invert();
+    }
     const newBuffer = await clone.getBufferAsync(original._originalMime);
     const AWSData = await getNewImageUrl({
       buffer: newBuffer,

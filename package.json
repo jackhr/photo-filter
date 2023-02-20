@@ -1,6 +1,10 @@
 {
   "name": "photo-filter",
   "version": "0.1.0",
+  "engines": {
+    "node": "19.x",
+    "npm": "9.x"
+  },
   "private": true,
   "dependencies": {
     "@aws-sdk/client-s3": "^3.14.0",
